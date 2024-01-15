@@ -1,0 +1,33 @@
+| users | CREATE TABLE `users` (
+  `userid` int NOT NULL AUTO_INCREMENT,
+  `firstname` varchar(255) NOT NULL,
+  `lastname` varchar(255) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `user_type` enum('admin','manager','member') DEFAULT 'member',
+  `manager` varchar(255) DEFAULT NULL,
+  `security_question` varchar(255) DEFAULT NULL,
+  `security_answer` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`userid`),
+  UNIQUE KEY `username` (`username`),
+  KEY `fk_manager` (`manager`),
+  CONSTRAINT `fk_manager` FOREIGN KEY (`manager`) REFERENCES `users` (`username`)
+)
+
+
+ requests | CREATE TABLE `requests` (
+  `requestid` int NOT NULL AUTO_INCREMENT,
+  `requestor` varchar(255) NOT NULL,
+  `requirement` varchar(255) NOT NULL,
+  `requeststatus` enum('pending','approved','denied') NOT NULL DEFAULT 'pending',
+  PRIMARY KEY (`requestid`),
+  KEY `requestor` (`requestor`),
+  CONSTRAINT `requests_ibfk_1` FOREIGN KEY (`requestor`) REFERENCES `users` (`username`) ON DELETE CASCADE
+)
+
+ resources | CREATE TABLE `resources` (
+  `resourceid` int NOT NULL AUTO_INCREMENT,
+  `resourcename` varchar(255) NOT NULL,
+  PRIMARY KEY (`resourceid`),
+  UNIQUE KEY `resourcename` (`resourcename`)
+)

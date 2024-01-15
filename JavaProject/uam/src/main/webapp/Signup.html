@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Signup Page</title>
+    <link rel="stylesheet" href="./style.css">
+     <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: greenyellow;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: black;
+            color: #fff;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: green;
+        }
+    </style>
+    
+</head>
+
+<body>
+
+    
+
+    <form action="webresources/myresource/signup" method="post">
+		 <h2>Sign Up</h2>
+        <label for="firstname">First Name:</label>
+        <input type="text" id="firstname" name="firstname" oninput="updateUsername()" required><br><br>
+
+        <label for="lastname">Last Name:</label>
+        <input type="text" id="lastname" name="lastname" oninput="updateUsername()" required><br><br>
+
+        <!-- Automatically generated username based on first and last name 
+        <label for="username">Username:</label>
+       <input type="text" id="username" name="username" readonly><br><br>-->
+        
+        <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required><br><br>
+
+        
+       <!-- <label for="user_type">User Type:</label>
+    <select id="user_type" name="user_type">
+        <option value="member">Member</option>
+        <option value="manager">Manager</option>
+        <option value="admin">Admin</option>
+    </select><br><br> -->
+    
+        <!-- Other registration fields go here -->
+        
+        <div id="generatedUsername" style="color: green;"></div>
+        <label for="securityQuestion">Security Question:</label>
+        <select id="securityQuestion" name="securityQuestion" required>
+            <option value="" disabled selected>Select a security question</option>
+            <option value="What is your mother's maiden name?">What is your mother's maiden name?</option>
+            <option value="What is your favorite color?">What is your favorite color?</option>
+            <!-- Add more predefined security questions as needed -->
+            <option value="custom">Custom (Enter your own question)</option>
+        </select>
+
+        <!-- Allow user to enter a custom security question -->
+        <div id="customQuestionContainer" style="display: none;">
+            <label for="customSecurityQuestion">Custom Security Question:</label>
+            <input type="text" id="customSecurityQuestion" name="customSecurityQuestion">
+        </div>
+
+		<label for="securityAnswer">Security Answer:</label>
+        <input type="text" id="securityAnswer" name="securityAnswer" required><br><br>
+		
+        <button type="submit">Sign Up</button>
+    </form>
+
+    <script>
+        // JavaScript function to update the username based on first and last name
+        function updateUsername() {
+            var firstname = document.getElementById('firstname').value;
+            var lastname = document.getElementById('lastname').value;
+            var usernameField = document.getElementById('username');
+
+            // Generate the username by combining first and last name
+            var username = (firstname +"."+ lastname).toLowerCase();
+
+            // Set the value of the username field
+            usernameField.value = username;
+            
+
+            // Set the content of the generatedUsername div
+            //generatedUsernameField.innerText = "Generated Username: " + generatedUsername;
+        }
+        document.getElementById('securityQuestion').addEventListener('change', function () {
+            var customQuestionContainer = document.getElementById('customQuestionContainer');
+            var customSecurityQuestion = document.getElementById('customSecurityQuestion');
+            if (this.value === 'custom') {
+                customQuestionContainer.style.display = 'block';
+                customSecurityQuestion.required = true;
+            } else {
+                customQuestionContainer.style.display = 'none';
+                customSecurityQuestion.required = false;
+            }
+        });
+    </script>
+
+</body>
+
+</html>
